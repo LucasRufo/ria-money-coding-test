@@ -10,6 +10,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Exercise02.API/Exercise02.API.csproj", "src/Exercise02.API/"]
+COPY ["src/Exercise02.Domain/Exercise02.Domain.csproj", "src/Exercise02.Domain/"]
+COPY ["src/Exercise02.Infrastructure/Exercise02.Infrastructure.csproj", "src/Exercise02.Infrastructure/"]
 RUN dotnet restore "./src/Exercise02.API/./Exercise02.API.csproj"
 COPY . .
 WORKDIR "/src/src/Exercise02.API"

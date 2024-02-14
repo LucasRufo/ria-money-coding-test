@@ -1,21 +1,24 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+ConfigureServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+ConfigureApp();
+
+app.Run();
+
+void ConfigureServices()
+{
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+}
+
+void ConfigureApp()
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.MapControllers();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
