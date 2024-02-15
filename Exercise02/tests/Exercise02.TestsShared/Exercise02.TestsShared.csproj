@@ -1,15 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Exercise02.API\Exercise02.API.csproj" />
-    <ProjectReference Include="..\..\src\Exercise02.Domain\Exercise02.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Exercise02.Infrastructure\Exercise02.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Bogus" Version="35.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Exercise02.API\Exercise02.API.csproj" />
+		<ProjectReference Include="..\..\src\Exercise02.Domain\Exercise02.Domain.csproj" />
+		<ProjectReference Include="..\..\src\Exercise02.Infrastructure\Exercise02.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>
