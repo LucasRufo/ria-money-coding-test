@@ -4,6 +4,8 @@ using Exercise02.Domain.Requests;
 using Exercise02.Domain.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System;
 
 namespace Exercise02.API.Controllers;
 
@@ -27,7 +29,10 @@ public class CustomerController : ControllerBase
         if (!validationResult.IsValid)
             return BadRequest(CustomProblemDetails.CreateValidationProblemDetails(HttpContext.Request.Path, validationResult.ToCustomProblemDetailsError()));
 
-        _customerService.InsertMany(request);
+        var result = _customerService.InsertMany(request);
+
+        if (result.IsError)
+            return UnprocessableEntity(CustomProblemDetails.CreateDomainProblemDetails(HttpStatusCode.UnprocessableEntity, HttpContext.Request.Path, result.FirstError));
 
         return Ok();
     }

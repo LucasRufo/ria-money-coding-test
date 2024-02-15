@@ -1,4 +1,5 @@
-﻿using Exercise02.API.Controllers.Shared;
+﻿using ErrorOr;
+using Exercise02.API.Controllers.Shared;
 using Exercise02.Domain.Requests;
 using Exercise02.IntegrationTests.Extensions;
 using Exercise02.TestsShared.Builders.Domain.Requests;
@@ -50,6 +51,34 @@ public class CustomerEndpointsTests : BaseIntegrationTests
             });
 
         response.Should().HaveStatusCode(HttpStatusCode.BadRequest);
+        problemDetails.Should().BeEquivalentTo(customProblemDetailsExpected, ctx => ctx.Excluding(p => p.Type));
+    }
+
+    [Test]
+    public async Task PostShouldReturnUnprocessableEntityWhenServiceReturnsError()
+    {
+        var id = 1;
+
+        var createCustomerRequest = new CreateCustomerRequestBuilder()
+            .WithId(1)
+            .Generate();
+
+        var createCustomerRequestList = new List<CreateCustomerRequest>() { createCustomerRequest };
+
+        await _httpClient.PostAsync(_baseUri, createCustomerRequestList.ToJsonContent());
+
+        var response = await _httpClient.PostAsync(_baseUri, createCustomerRequestList.ToJsonContent());
+
+        var problemDetails = await response.Content.ReadFromJsonAsync<CustomProblemDetails>();
+
+        var error = Error.Failure("CustomerIdAlreadyInUse", $"The following customer Ids are already in use: {id}");
+
+        var customProblemDetailsExpected = CustomProblemDetails.CreateDomainProblemDetails(
+            HttpStatusCode.UnprocessableEntity,
+            _baseUri,
+            error);
+
+        response.Should().HaveStatusCode(HttpStatusCode.UnprocessableEntity);
         problemDetails.Should().BeEquivalentTo(customProblemDetailsExpected, ctx => ctx.Excluding(p => p.Type));
     }
 

@@ -82,14 +82,14 @@ public class InternalCustomerArrayTests : BaseTests
 
         var internalCustomerArray = new InternalCustomerArray(list);
 
-        var customerAReapeted = new CustomerBuilder()
+        var customerARapeated = new CustomerBuilder()
             .WithLastName("Aaaa")
             .WithFirstName("Aaaa")
             .Generate();
 
-        internalCustomerArray.InsertOrderedByLastAndFirstName(customerAReapeted);
+        internalCustomerArray.InsertOrderedByLastAndFirstName(customerARapeated);
 
-        var expectedList = new List<Customer>() { customerA, customerAReapeted, customerC };
+        var expectedList = new List<Customer>() { customerA, customerARapeated, customerC };
 
         internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList);
     }

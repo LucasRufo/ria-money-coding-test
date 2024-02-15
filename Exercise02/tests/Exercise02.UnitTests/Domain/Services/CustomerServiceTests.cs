@@ -1,4 +1,5 @@
-﻿using Exercise02.Domain.Requests;
+﻿using ErrorOr;
+using Exercise02.Domain.Requests;
 using Exercise02.Domain.Services;
 using Exercise02.TestsShared.Builders.Domain.Requests;
 using FluentAssertions;
@@ -27,9 +28,32 @@ public class CustomerServiceTests : BaseTests
 
         var list = new List<CreateCustomerRequest>() { customerA, customerB, customerC };
 
-        var insertedCustomers = new CustomerService()
+        var result = new CustomerService()
             .InsertMany(list);
 
-        insertedCustomers.Should().BeEquivalentTo(list);
+        result.IsError.Should().BeFalse();
+        result.Value.Should().BeEquivalentTo(list);
+    }
+
+    [Test]
+    public void ShouldReturnErrorWhenAnyIdIsAlreadyInUse()
+    {
+        var id = 1;
+        var customerService = new CustomerService();
+
+        var customer = new CreateCustomerRequestBuilder()
+            .WithId(id)
+            .Generate();
+
+        var list = new List<CreateCustomerRequest>() { customer };
+
+        customerService.InsertMany(list);
+
+        var result = customerService.InsertMany(list);
+
+        var error = Error.Failure("CustomerIdAlreadyInUse", $"The following customer Ids are already in use: {id}");
+
+        result.IsError.Should().BeTrue();
+        result.FirstError.Should().BeEquivalentTo(error);
     }
 }
