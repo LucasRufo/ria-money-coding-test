@@ -16,7 +16,7 @@ public static class AppServicesConfiguration
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<CustomerService>();
+        services.AddSingleton<CustomerService>();
 
         return services;
     }
