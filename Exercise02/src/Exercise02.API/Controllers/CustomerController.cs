@@ -1,6 +1,7 @@
 ﻿using Exercise02.API.Controllers.Shared;
 using Exercise02.API.Extensions;
 using Exercise02.Domain.Requests;
+using Exercise02.Domain.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace Exercise02.API.Controllers;
 [Route("/customers")]
 public class CustomerController : ControllerBase
 {
-    private IValidator<List<CreateCustomerRequest>> _validator { get; set; }
-    public CustomerController(IValidator<List<CreateCustomerRequest>> validator)
+    private IValidator<List<CreateCustomerRequest>> _validator;
+    private CustomerService _customerService;
+    public CustomerController(IValidator<List<CreateCustomerRequest>> validator, CustomerService customerService)
     {
         _validator = validator;
+        _customerService = customerService;
     }
 
     [HttpPost()]
@@ -24,12 +27,16 @@ public class CustomerController : ControllerBase
         if (!validationResult.IsValid)
             return BadRequest(CustomProblemDetails.CreateValidationProblemDetails(HttpContext.Request.Path, validationResult.ToCustomProblemDetailsError()));
 
+        _customerService.InsertMany(request);
+
         return Ok();
     }
 
     [HttpGet()]
     public IActionResult Get()
     {
-        return Ok();
+        var customers = _customerService.Get();
+
+        return Ok(customers);
     }
 }

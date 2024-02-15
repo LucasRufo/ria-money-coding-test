@@ -24,4 +24,7 @@ public class CustomerService
 
         return CustomerArray.Customers;
     }
+
+    public Customer[] Get() => CustomerArray.Customers;
+    
 }

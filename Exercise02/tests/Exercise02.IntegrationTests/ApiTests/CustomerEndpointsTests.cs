@@ -3,7 +3,6 @@ using Exercise02.Domain.Requests;
 using Exercise02.IntegrationTests.Extensions;
 using Exercise02.TestsShared.Builders.Domain.Requests;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Http.Json;
 
