@@ -7,17 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9F4F80F7-85E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E824A42E-7678-41C6-9C56-4F0409D09139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.API", "src\Exercise02.API\Exercise02.API.csproj", "{A32F8E2D-57AA-45A3-BE93-65ACB84D5A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.API", "src\Exercise02.API\Exercise02.API.csproj", "{A32F8E2D-57AA-45A3-BE93-65ACB84D5A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.Domain", "src\Exercise02.Domain\Exercise02.Domain.csproj", "{F3470C5E-2C28-453B-8DF3-0EB73A587193}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.Domain", "src\Exercise02.Domain\Exercise02.Domain.csproj", "{F3470C5E-2C28-453B-8DF3-0EB73A587193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.Infrastructure", "src\Exercise02.Infrastructure\Exercise02.Infrastructure.csproj", "{049AD041-C1D9-45F8-A82D-FDF58534C721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.Infrastructure", "src\Exercise02.Infrastructure\Exercise02.Infrastructure.csproj", "{049AD041-C1D9-45F8-A82D-FDF58534C721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.UnitTests", "tests\Exercise02.UnitTests\Exercise02.UnitTests.csproj", "{0BE237AC-FEE5-4B71-901E-4445B57D1F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.UnitTests", "tests\Exercise02.UnitTests\Exercise02.UnitTests.csproj", "{0BE237AC-FEE5-4B71-901E-4445B57D1F46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.IntegrationTests", "tests\Exercise02.IntegrationTests\Exercise02.IntegrationTests.csproj", "{7D397AAD-DB06-4683-84F0-727F0F71C962}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.IntegrationTests", "tests\Exercise02.IntegrationTests\Exercise02.IntegrationTests.csproj", "{7D397AAD-DB06-4683-84F0-727F0F71C962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.TestsShared", "tests\Exercise02.TestsShared\Exercise02.TestsShared.csproj", "{5DC07766-EFAE-48CA-8653-B863A6380728}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercise02.TestsShared", "tests\Exercise02.TestsShared\Exercise02.TestsShared.csproj", "{5DC07766-EFAE-48CA-8653-B863A6380728}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02.HttpSimulator", "src\Exercise02.HttpSimulator\Exercise02.HttpSimulator.csproj", "{C9AC5FFF-9D37-4D82-8976-067919DC98A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{5DC07766-EFAE-48CA-8653-B863A6380728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC07766-EFAE-48CA-8653-B863A6380728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC07766-EFAE-48CA-8653-B863A6380728}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9AC5FFF-9D37-4D82-8976-067919DC98A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9AC5FFF-9D37-4D82-8976-067919DC98A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9AC5FFF-9D37-4D82-8976-067919DC98A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9AC5FFF-9D37-4D82-8976-067919DC98A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{0BE237AC-FEE5-4B71-901E-4445B57D1F46} = {E824A42E-7678-41C6-9C56-4F0409D09139}
 		{7D397AAD-DB06-4683-84F0-727F0F71C962} = {E824A42E-7678-41C6-9C56-4F0409D09139}
 		{5DC07766-EFAE-48CA-8653-B863A6380728} = {E824A42E-7678-41C6-9C56-4F0409D09139}
+		{C9AC5FFF-9D37-4D82-8976-067919DC98A1} = {9F4F80F7-85E2-4D69-999F-51B49E632FCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {703A8A9B-A75A-407E-B603-F88D7F52F717}
