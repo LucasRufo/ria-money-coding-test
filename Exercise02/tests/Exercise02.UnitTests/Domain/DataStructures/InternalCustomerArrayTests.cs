@@ -1,4 +1,5 @@
-﻿using Exercise02.Domain.DataStructures;
+﻿using ErrorOr;
+using Exercise02.Domain.DataStructures;
 using Exercise02.Domain.Entities;
 using Exercise02.TestsShared.Builders.Domain.Entities;
 using FluentAssertions;
@@ -7,6 +8,12 @@ namespace Exercise02.UnitTests.Domain.DataStructures;
 
 public class InternalCustomerArrayTests : BaseTests
 {
+    [SetUp]
+    public void SetUp()
+    {
+        InternalCustomerArray.Instance.Reset();
+    }
+
     [Test]
     public void ShouldInsertCustomerOrderedByLastName()
     {
@@ -22,7 +29,9 @@ public class InternalCustomerArrayTests : BaseTests
 
         var list = new List<Customer>() { customerA, customerC };
 
-        var internalCustomerArray = new InternalCustomerArray(list);
+        InternalCustomerArray.Instance.Initialize(list);
+
+        var internalCustomerArray = InternalCustomerArray.Instance;
 
         var customerB = new CustomerBuilder()
             .WithLastName("Bbbb")
@@ -33,7 +42,7 @@ public class InternalCustomerArrayTests : BaseTests
 
         var expectedList = new List<Customer>() { customerA, customerB, customerC };
 
-        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList);
+        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList, x => x.WithStrictOrdering());
     }
 
     [Test]
@@ -51,7 +60,9 @@ public class InternalCustomerArrayTests : BaseTests
 
         var list = new List<Customer>() { customerA, customerC };
 
-        var internalCustomerArray = new InternalCustomerArray(list);
+        InternalCustomerArray.Instance.Initialize(list);
+
+        var internalCustomerArray = InternalCustomerArray.Instance;
 
         var customerB = new CustomerBuilder()
             .WithLastName("Aaaa")
@@ -62,7 +73,7 @@ public class InternalCustomerArrayTests : BaseTests
 
         var expectedList = new List<Customer>() { customerA, customerB, customerC };
 
-        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList);
+        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList, x => x.WithStrictOrdering());
     }
 
     [Test]
@@ -80,7 +91,9 @@ public class InternalCustomerArrayTests : BaseTests
 
         var list = new List<Customer>() { customerA, customerC };
 
-        var internalCustomerArray = new InternalCustomerArray(list);
+        InternalCustomerArray.Instance.Initialize(list);
+
+        var internalCustomerArray = InternalCustomerArray.Instance;
 
         var customerARapeated = new CustomerBuilder()
             .WithLastName("Aaaa")
@@ -91,7 +104,7 @@ public class InternalCustomerArrayTests : BaseTests
 
         var expectedList = new List<Customer>() { customerA, customerARapeated, customerC };
 
-        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList);
+        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList, x => x.WithStrictOrdering());
     }
 
     [Test]
@@ -124,7 +137,9 @@ public class InternalCustomerArrayTests : BaseTests
 
         var list = new List<Customer>() { customerA, customerB, customerC, customerD, customerE };
 
-        var internalCustomerArray = new InternalCustomerArray(list);
+        InternalCustomerArray.Instance.Initialize(list);
+
+        var internalCustomerArray = InternalCustomerArray.Instance;
 
         var firstCustomerToInsert = new CustomerBuilder()
             .WithLastName("Bbbb")
@@ -135,7 +150,7 @@ public class InternalCustomerArrayTests : BaseTests
 
         var expectedList = new List<Customer>() { customerA, customerB, firstCustomerToInsert, customerC, customerD, customerE };
 
-        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList);
+        internalCustomerArray.Customers.Should().BeEquivalentTo(expectedList, x => x.WithStrictOrdering());
 
         var secondCustomerToInsert = new CustomerBuilder()
             .WithLastName("Bbbb")
@@ -146,6 +161,6 @@ public class InternalCustomerArrayTests : BaseTests
 
         var secondExpectedList = new List<Customer>() { customerA, customerB, secondCustomerToInsert, firstCustomerToInsert, customerC, customerD, customerE };
 
-        internalCustomerArray.Customers.Should().BeEquivalentTo(secondExpectedList);
+        internalCustomerArray.Customers.Should().BeEquivalentTo(secondExpectedList, x => x.WithStrictOrdering());
     }
 }

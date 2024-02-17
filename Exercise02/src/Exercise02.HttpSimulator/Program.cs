@@ -3,7 +3,10 @@ using System.Net.Http.Json;
 using System.Text.Json;
 
 var baseUrl = "http://localhost:8080/";
-var uri = "/customers";
+var path = "/customers";
+
+//Change this number to increase or decrease the number of requests.
+var maxNumberOfRequests = 100;
 
 var customerGenerator = new CustomerGenerator();
 
@@ -11,8 +14,6 @@ using var httpClient = new HttpClient()
 {
     BaseAddress = new Uri(baseUrl)
 };
-
-var maxNumberOfRequests = 100;
 
 var tasks = new List<Task>();
 
@@ -26,7 +27,7 @@ async Task SendPostCustomer()
 {
     var customers = customerGenerator.GenerateCustomers(RandomCustom.Next(2, 5));
 
-    var result = await httpClient.PostAsJsonAsync(uri, customers);
+    var result = await httpClient.PostAsJsonAsync(path, customers);
 
     var response = await result.Content.ReadAsStringAsync();
 
@@ -35,7 +36,7 @@ async Task SendPostCustomer()
 
 async Task SendGetCustomers() 
 {
-    var result = await httpClient.GetAsync(uri);
+    var result = await httpClient.GetAsync(path);
 
     Console.WriteLine($"GET /customers {result.StatusCode}");
 }
@@ -43,10 +44,3 @@ async Task SendGetCustomers()
 await Task.WhenAll(tasks);
 
 Console.ReadKey();
-
-
-
-
-
-
-

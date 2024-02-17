@@ -11,6 +11,6 @@ public static class ContextConfiguration
         {
             dbBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                     options => options.CommandTimeout(30).EnableRetryOnFailure());
-        }, ServiceLifetime.Singleton);
+        });
     }
 }

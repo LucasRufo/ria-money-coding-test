@@ -24,6 +24,8 @@ void ConfigureApp()
     app.UseSwagger();
     app.UseSwaggerUI();
 
+    app.InitalizeInternalCustomerArray();
+
     app.MapControllers();
 }
 

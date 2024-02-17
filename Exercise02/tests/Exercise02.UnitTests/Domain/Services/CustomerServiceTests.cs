@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using Exercise02.Domain.DataStructures;
 using Exercise02.Domain.Repositories;
 using Exercise02.Domain.Requests;
 using Exercise02.Domain.Services;
@@ -13,11 +14,13 @@ public class CustomerServiceTests : BaseTests
     [SetUp]
     public void SetUp()
     {
+        InternalCustomerArray.Instance.Reset();
+
         AutoFake.Provide(A.Fake<ICustomerRepository>());
     }
 
     [Test]
-    public void ShouldInsertManyOrdered()
+    public async Task ShouldInsertManyOrdered()
     {
         var customerA = new CreateCustomerRequestBuilder()
             .WithLastName("Aaaa")
@@ -34,17 +37,17 @@ public class CustomerServiceTests : BaseTests
             .WithFirstName("Bbbb")
             .Generate();
 
-        var list = new List<CreateCustomerRequest>() { customerA, customerB, customerC };
+        var customerList = new List<CreateCustomerRequest>() { customerA, customerB, customerC };
 
-        var result = AutoFake.Resolve<CustomerService>()
-            .InsertMany(list);
+        var result = await AutoFake.Resolve<CustomerService>()
+            .InsertMany(customerList);
 
         result.IsError.Should().BeFalse();
-        result.Value.Should().BeEquivalentTo(list);
+        result.Value.Should().BeEquivalentTo(customerList, x => x.WithStrictOrdering());
     }
 
     [Test]
-    public void ShouldReturnErrorWhenAnyIdIsAlreadyInUse()
+    public async Task ShouldReturnErrorWhenAnyIdIsAlreadyInUse()
     {
         var id = 1;
         var customerService = AutoFake.Resolve<CustomerService>();
@@ -55,9 +58,9 @@ public class CustomerServiceTests : BaseTests
 
         var list = new List<CreateCustomerRequest>() { customer };
 
-        customerService.InsertMany(list);
+        await customerService.InsertMany(list);
 
-        var result = customerService.InsertMany(list);
+        var result = await customerService.InsertMany(list);
 
         var error = Error.Failure("CustomerIdAlreadyInUse", $"The following customer Ids are already in use: {id}");
 

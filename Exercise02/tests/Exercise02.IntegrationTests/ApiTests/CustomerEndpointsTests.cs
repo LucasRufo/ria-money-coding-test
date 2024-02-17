@@ -3,7 +3,6 @@ using Exercise02.API.Controllers.Shared;
 using Exercise02.Domain.Entities;
 using Exercise02.Domain.Requests;
 using Exercise02.IntegrationTests.Extensions;
-using Exercise02.TestsShared.Builders.Domain.Entities;
 using Exercise02.TestsShared.Builders.Domain.Requests;
 using FluentAssertions;
 using System.Net;
@@ -90,21 +89,22 @@ public class CustomerEndpointsTests : BaseIntegrationTests
     [Test]
     public async Task GetShouldReturnSuccess()
     {
-        var customers = new CustomerBuilder().Generate(3);
+        var createCustomerRequestList = new CreateCustomerRequestBuilder().Generate(3);
 
-        await Context.AddRangeAsync(customers);
-        await Context.SaveChangesAsync();
+        await _httpClient.PostAsync(_baseUri, createCustomerRequestList.ToJsonContent());
 
-        var orderedCustomers = customers
+        var orderedRequests = createCustomerRequestList
             .OrderBy(x => x.LastName)
             .ThenBy(x => x.FirstName)
             .ToList();
+
+        var orderedCustomers = Customer.Convert(orderedRequests);
 
         var response = await _httpClient.GetAsync(_baseUri);
 
         var customersFromResponse = await response.Content.ReadFromJsonAsync<List<Customer>>();
 
         response.Should().HaveStatusCode(HttpStatusCode.OK);
-        orderedCustomers.Should().BeEquivalentTo(customersFromResponse);
+        orderedCustomers.Should().BeEquivalentTo(customersFromResponse, x => x.WithStrictOrdering());
     }
 }

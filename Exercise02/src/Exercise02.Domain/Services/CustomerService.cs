@@ -14,10 +14,11 @@ public class CustomerService
     public CustomerService(ICustomerRepository customerRepository)
     {
         _customerRepository = customerRepository;
-        CustomerArray = new InternalCustomerArray(_customerRepository.GetOrderedByLastAndFisrtName());
+
+        CustomerArray = InternalCustomerArray.Instance;
     }
 
-    public ErrorOr<Customer[]> InsertMany(List<CreateCustomerRequest> createCustomerRequestList)
+    public async Task<ErrorOr<Customer[]>> InsertMany(List<CreateCustomerRequest> createCustomerRequestList)
     {
         var ids = createCustomerRequestList.Select(x => x.Id);
         var existingIds = CustomerArray.Customers.Where(x => ids.Contains(x.Id)).Select(x => x.Id).ToList();
@@ -34,11 +35,11 @@ public class CustomerService
             CustomerArray.InsertOrderedByLastAndFirstName(customer);
         }
 
-        _customerRepository.InsertMany(customerList);
+        await _customerRepository.InsertMany(customerList);
 
         return CustomerArray.Customers;
     }
 
     public Customer[] Get() => CustomerArray.Customers;
-    
+
 }

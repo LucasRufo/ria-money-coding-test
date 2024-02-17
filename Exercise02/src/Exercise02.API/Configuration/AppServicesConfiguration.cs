@@ -19,14 +19,14 @@ public static class AppServicesConfiguration
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddSingleton<CustomerService>();
+        services.AddScoped<CustomerService>();
 
         return services;
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }
