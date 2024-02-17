@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Exercise02.Domain.DataStructures;
 using Exercise02.Domain.Entities;
+using Exercise02.Domain.Repositories;
 using Exercise02.Domain.Requests;
 
 namespace Exercise02.Domain.Services;
@@ -8,10 +9,12 @@ namespace Exercise02.Domain.Services;
 public class CustomerService
 {
     private readonly InternalCustomerArray CustomerArray;
+    private readonly ICustomerRepository _customerRepository;
 
-    public CustomerService()
+    public CustomerService(ICustomerRepository customerRepository)
     {
-        CustomerArray = new InternalCustomerArray();
+        _customerRepository = customerRepository;
+        CustomerArray = new InternalCustomerArray(_customerRepository.GetOrderedByLastAndFisrtName());
     }
 
     public ErrorOr<Customer[]> InsertMany(List<CreateCustomerRequest> createCustomerRequestList)
@@ -30,6 +33,8 @@ public class CustomerService
         {
             CustomerArray.InsertOrderedByLastAndFirstName(customer);
         }
+
+        _customerRepository.InsertMany(customerList);
 
         return CustomerArray.Customers;
     }

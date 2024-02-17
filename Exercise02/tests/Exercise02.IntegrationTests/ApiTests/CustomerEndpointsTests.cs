@@ -1,7 +1,9 @@
 ﻿using ErrorOr;
 using Exercise02.API.Controllers.Shared;
+using Exercise02.Domain.Entities;
 using Exercise02.Domain.Requests;
 using Exercise02.IntegrationTests.Extensions;
+using Exercise02.TestsShared.Builders.Domain.Entities;
 using Exercise02.TestsShared.Builders.Domain.Requests;
 using FluentAssertions;
 using System.Net;
@@ -27,7 +29,10 @@ public class CustomerEndpointsTests : BaseIntegrationTests
 
         var response = await _httpClient.PostAsync(_baseUri, createCustomerRequestList.ToJsonContent());
 
+        var customersFromDatabase = ContextForAsserts.Customers.ToList();
+
         response.Should().HaveStatusCode(HttpStatusCode.OK);
+        createCustomerRequestList.Should().BeEquivalentTo(customersFromDatabase);
     }
 
     [Test]
@@ -85,8 +90,21 @@ public class CustomerEndpointsTests : BaseIntegrationTests
     [Test]
     public async Task GetShouldReturnSuccess()
     {
+        var customers = new CustomerBuilder().Generate(3);
+
+        await Context.AddRangeAsync(customers);
+        await Context.SaveChangesAsync();
+
+        var orderedCustomers = customers
+            .OrderBy(x => x.LastName)
+            .ThenBy(x => x.FirstName)
+            .ToList();
+
         var response = await _httpClient.GetAsync(_baseUri);
 
+        var customersFromResponse = await response.Content.ReadFromJsonAsync<List<Customer>>();
+
         response.Should().HaveStatusCode(HttpStatusCode.OK);
+        orderedCustomers.Should().BeEquivalentTo(customersFromResponse);
     }
 }

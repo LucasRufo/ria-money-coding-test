@@ -1,5 +1,7 @@
-﻿using Exercise02.Domain.Services;
+﻿using Exercise02.Domain.Repositories;
+using Exercise02.Domain.Services;
 using Exercise02.Domain.Validators;
+using Exercise02.Infrastructure.Repositories;
 using FluentValidation;
 
 namespace Exercise02.API.Configuration;
@@ -10,6 +12,7 @@ public static class AppServicesConfiguration
     {
         services.AddValidators();
         services.AddServices();
+        services.AddRepositories();
 
         return services;
     }
@@ -17,6 +20,13 @@ public static class AppServicesConfiguration
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddSingleton<CustomerService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddSingleton<ICustomerRepository, CustomerRepository>();
 
         return services;
     }

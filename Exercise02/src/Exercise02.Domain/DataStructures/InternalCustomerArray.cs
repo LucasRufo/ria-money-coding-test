@@ -1,4 +1,5 @@
 ﻿using Exercise02.Domain.Entities;
+using System.Globalization;
 
 namespace Exercise02.Domain.DataStructures;
 
@@ -37,10 +38,10 @@ public class InternalCustomerArray
 
     private static bool CompareNamesPrecedence(Customer currentCustomer, Customer customerToCompare)
     {
-        var hasLastNamePrecedence = currentCustomer.LastName.CompareTo(customerToCompare.LastName) < 0;
+        var hasLastNamePrecedence = string.Compare(currentCustomer.LastName, customerToCompare.LastName, StringComparison.OrdinalIgnoreCase) < 0;
 
-        var hasFisrtNamePrecedence = currentCustomer.LastName == customerToCompare.LastName
-            && currentCustomer.FirstName.CompareTo(customerToCompare.FirstName) <= 0;
+        var hasFisrtNamePrecedence = string.Equals(currentCustomer.LastName, customerToCompare.LastName, StringComparison.OrdinalIgnoreCase)
+            && string.Compare(currentCustomer.FirstName, customerToCompare.FirstName, StringComparison.OrdinalIgnoreCase) <= 0;
 
         return hasLastNamePrecedence || hasFisrtNamePrecedence;
     }

@@ -12,10 +12,11 @@ app.Run();
 
 void ConfigureServices()
 {
-    builder.Services.AddApplicationServices();
+    builder.AddCustomerDbContext(builder.Configuration);
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddApplicationServices();
 }
 
 void ConfigureApp()

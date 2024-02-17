@@ -1,13 +1,21 @@
 ﻿using ErrorOr;
+using Exercise02.Domain.Repositories;
 using Exercise02.Domain.Requests;
 using Exercise02.Domain.Services;
 using Exercise02.TestsShared.Builders.Domain.Requests;
+using FakeItEasy;
 using FluentAssertions;
 
 namespace Exercise02.UnitTests.Domain.Services;
 
 public class CustomerServiceTests : BaseTests
 {
+    [SetUp]
+    public void SetUp()
+    {
+        AutoFake.Provide(A.Fake<ICustomerRepository>());
+    }
+
     [Test]
     public void ShouldInsertManyOrdered()
     {
@@ -28,7 +36,7 @@ public class CustomerServiceTests : BaseTests
 
         var list = new List<CreateCustomerRequest>() { customerA, customerB, customerC };
 
-        var result = new CustomerService()
+        var result = AutoFake.Resolve<CustomerService>()
             .InsertMany(list);
 
         result.IsError.Should().BeFalse();
@@ -39,7 +47,7 @@ public class CustomerServiceTests : BaseTests
     public void ShouldReturnErrorWhenAnyIdIsAlreadyInUse()
     {
         var id = 1;
-        var customerService = new CustomerService();
+        var customerService = AutoFake.Resolve<CustomerService>();
 
         var customer = new CreateCustomerRequestBuilder()
             .WithId(id)
