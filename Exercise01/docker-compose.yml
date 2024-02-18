@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  exercise01:
+    build:
+      context: .
+      dockerfile: ./src/Exercise01.Console/Dockerfile
+      no_cache: true
+    restart: no

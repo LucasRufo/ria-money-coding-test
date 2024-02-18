@@ -22,9 +22,9 @@ public class ATM
             {
                 var remaining = amount - cr100Count * Cartridge100 - cr50Count * Cartridge50;
 
-                if (remaining % 10 == 0)
+                if (remaining % Cartridge10 == 0)
                 {
-                    var cr10Count = remaining / 10;
+                    var cr10Count = remaining / Cartridge10;
                     combinations.Add(new Combination(cr100Count, cr50Count, cr10Count));
                 }
             }
