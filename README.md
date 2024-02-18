@@ -29,7 +29,7 @@ dotnet run --project ./src/Exercise01.Console/Exercise01.Console.csproj
 2. Using Docker Compose:
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 ### Thought process
@@ -70,7 +70,7 @@ dotnet run --project ./src/Exercise02.API/Exercise02.API.csproj
 2. Using Docker Compose:
 
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 Optionally, you can run only the PostgreSQL container if you choose to run the application using Visual Studio. To run only the database container, run the following command:
@@ -117,4 +117,4 @@ Currently, the insertion algorithm doesn’t have a rule to decide the insertion
 
 ### Related projects
 
-I've on my Github a similar REST API project using almost the same technologies, but adding Kubernetes, if you want to check it, here is the link: https://github.com/LucasRufo/transfer-hub-api
+I have a similar REST API project on my GitHub that uses almost the same technologies, with the addition of Kubernetes. If you are interested, you can check it out here: https://github.com/LucasRufo/transfer-hub-api.
