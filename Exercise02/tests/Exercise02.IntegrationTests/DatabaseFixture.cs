@@ -32,9 +32,7 @@ public class DatabaseFixture
                 first_name VARCHAR(200) NOT NULL,
                 last_name VARCHAR(200) NOT NULL,
                 age INTEGER NOT NULL
-            );
-
-            CREATE INDEX idx_customers_first_name_last_name ON customers (first_name, last_name);";
+            );";
 
         await conn.ExecuteAsync(sqlQuery);
 

@@ -4,5 +4,3 @@ CREATE TABLE IF NOT EXISTS customers (
     last_name VARCHAR(200) NOT NULL,
     age INTEGER NOT NULL
 );
-
-CREATE INDEX idx_customers_first_name_last_name ON customers (first_name, last_name);
