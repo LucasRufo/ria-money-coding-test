@@ -2,11 +2,18 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 
-var baseUrl = "http://localhost:8080/";
+//This delay is necessary when the apps are running using docker-compose.
+//The "depends_on" option on docker-compose does not ensure that the API container is totally ready for execution.
+//We could use a retry on the HTTP call, but for simplicity we are using a delay.
+await Task.Delay(2000);
+
+var baseUrlFromEnv = Environment.GetEnvironmentVariable("CUSTOMERS_API_URL");
+
+var baseUrl = baseUrlFromEnv ?? "http://localhost:8080/";
 var path = "/customers";
 
 //Change this number to increase or decrease the number of requests.
-var maxNumberOfRequests = 100;
+var maxNumberOfRequests = 500;
 
 var customerGenerator = new CustomerGenerator();
 
@@ -43,4 +50,4 @@ async Task SendGetCustomers()
 
 await Task.WhenAll(tasks);
 
-Console.ReadKey();
+Console.Read();

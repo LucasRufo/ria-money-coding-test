@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Exercise02.HttpSimulator": {
+      "commandName": "Project"
+    }
+  }
+}

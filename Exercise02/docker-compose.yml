@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev@password123
+      POSTGRES_DB: customersdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  api: 
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./src/Exercise02.API/Dockerfile
+      no_cache: true
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=postgres;Database=customersdb;Port=5432;User Id=dev;Password=dev@password123"
+
+  httpsimulator:
+    depends_on:
+      - api
+      - postgres
+    build:
+      context: .
+      dockerfile: ./src/Exercise02.HttpSimulator/Dockerfile
+      no_cache: true
+    restart: no
+    environment:
+      CUSTOMERS_API_URL: "http://api:8080/"
