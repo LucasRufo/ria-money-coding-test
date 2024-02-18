@@ -11,6 +11,15 @@ public static class InternalCustomerArrayInitialization
 
         var customerRepository = serviceScope.ServiceProvider.GetRequiredService<ICustomerRepository>();
 
-        InternalCustomerArray.Instance.Initialize(customerRepository.GetOrderedByLastAndFisrtName());
+        var customers = customerRepository.GetCustomers();
+
+        InternalCustomerArray.Instance.Initialize();
+
+        //Did not know if I could get ordered data from the database (e.g OrderBy)
+        //So i'm using the same insertion logic to load the initial data
+        foreach (var customer in customers)
+        {
+            InternalCustomerArray.Instance.InsertOrderedByLastAndFirstName(customer);
+        }
     }
 }

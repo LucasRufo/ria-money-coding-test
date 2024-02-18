@@ -5,7 +5,7 @@ namespace Exercise02.Domain.DataStructures;
 public class InternalCustomerArray
 {
     private static readonly InternalCustomerArray instance = new();
-    private static bool isInitialized { get; set; }
+    private static bool isInitialized;
 
     public Customer[] Customers { get; private set; }
 

@@ -32,13 +32,8 @@ public class CustomerRepositoryTests : BaseIntegrationTests
         await Context.AddRangeAsync(customers);
         await Context.SaveChangesAsync();
 
-        var orderedCustomers = customers
-            .OrderBy(x => x.LastName)
-            .ThenBy(x => x.FirstName)
-            .ToList();
+        var customersFromDatabase = _customerRepository.GetCustomers();
 
-        var customersFromDatabase = _customerRepository.GetOrderedByLastAndFisrtName();
-
-        orderedCustomers.Should().BeEquivalentTo(customersFromDatabase);
+        customers.Should().BeEquivalentTo(customersFromDatabase);
     }
 }

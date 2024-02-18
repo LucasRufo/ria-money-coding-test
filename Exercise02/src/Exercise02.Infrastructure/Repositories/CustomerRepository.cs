@@ -17,12 +17,9 @@ public class CustomerRepository : ICustomerRepository
         await _customerContext.SaveChangesAsync();
     }
 
-    public List<Customer> GetOrderedByLastAndFisrtName()
+    public List<Customer> GetCustomers()
     {
-        var customers = _customerContext.Customers
-            .OrderBy(x => x.LastName)
-            .ThenBy(x => x.FirstName)
-            .ToList();
+        var customers = _customerContext.Customers.ToList();
 
         return customers;
     }
