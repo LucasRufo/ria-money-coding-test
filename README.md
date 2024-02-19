@@ -61,7 +61,13 @@ List of external libraries used:
 
 For the second exercise, we have two projects: the REST API and the Request Simulator. You can run them using the following commands depending on the way chosen for running the application:
 
-1. To run the REST API using the .NET CLI:
+1. To run the REST API using the .NET CLI, the first step is to run the PostgreSQL database:
+
+```bash
+docker-compose up -d postgres
+```
+
+Then run the API:
 
 ```bash
 dotnet run --project ./src/Exercise02.API/Exercise02.API.csproj
