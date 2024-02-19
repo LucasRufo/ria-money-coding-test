@@ -67,7 +67,7 @@ For the second exercise, we have two projects: the REST API and the Request Simu
 docker-compose up -d postgres
 ```
 
-Then run the API:
+Then, run the API using the following command:
 
 ```bash
 dotnet run --project ./src/Exercise02.API/Exercise02.API.csproj
