@@ -79,6 +79,8 @@ dotnet run --project ./src/Exercise02.HttpSimulator/Exercise02.HttpSimulator.csp
 docker-compose up -d --build
 ```
 
+Any of the options above will run the API at http://localhost:8080/. You can check the Swagger page at http://localhost:8080/swagger/index.html.
+
 Optionally, you can run only the PostgreSQL container if you choose to run the application using Visual Studio. To run only the database container, run the following command:
 
 ```bash
