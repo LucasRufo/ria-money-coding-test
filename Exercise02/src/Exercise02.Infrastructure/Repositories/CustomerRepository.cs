@@ -13,6 +13,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task InsertMany(List<Customer> customers)
     {
+        //We could use a bulk insert here, but for simplicity, i'm using the AddRangeAsync().
         await _customerContext.Customers.AddRangeAsync(customers);
         await _customerContext.SaveChangesAsync();
     }
