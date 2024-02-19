@@ -25,7 +25,7 @@ public class CustomerRepositoryTests : BaseIntegrationTests
     }
 
     [Test]
-    public async Task ShouldGetAllOrderedByLastAndFirstName()
+    public async Task ShouldGetCustomers()
     {
         var customers = new CustomerBuilder().Generate(3);
 
