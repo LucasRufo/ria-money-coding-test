@@ -117,11 +117,11 @@ To make the internal array insertion thread-safe I’ve used a `lock` statement.
 
 For the second part of exercise 02, the request simulator, I chose to go with a simple console project that creates 500 POST and GET HTTP requests to the REST API. 
 
-To generate random data, I had to create a wrapper for the built-in `Random` class since the implementation is not thread-safe, and to generate the incremental ID, I've used the `Interlocked.Increment()` method.
+To generate random data, I've used the `Random` class and the `Random.Shared` property, which is a thread-safe way of generating random numbers since .NET 6. To generate the incremental ID, I've used the `Interlocked.Increment()` method.
 
 ### Suggestions for algorithm logic improvements
 
-Currently, the insertion algorithm doesn’t have a rule to decide the insertion position when two participants share the same first and last name. An improvement could be adding a new rule to sort by age or ID if participants share de exact same name.
+Currently, the insertion algorithm doesn’t have a rule to decide the insertion position when two participants share the same first and last name. An improvement could be adding a new rule to sort by age or ID if participants share the exact same name.
 
 ### Related projects
 
