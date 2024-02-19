@@ -15,7 +15,7 @@ public static class InternalCustomerArrayInitialization
 
         InternalCustomerArray.Instance.Initialize();
 
-        //Did not know if I could get ordered data from the database (e.g OrderBy)
+        //I did not know if I could get ordered data from the database (e.g OrderBy)
         //So i'm using the same insertion logic to load the initial data
         foreach (var customer in customers)
         {

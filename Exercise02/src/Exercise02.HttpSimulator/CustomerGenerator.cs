@@ -16,14 +16,14 @@ public class CustomerGenerator
 
         for (int i = 0; i < count; i++)
         {
-            var age = RandomCustom.Next(MinAge, MaxAge);
+            var age = RandomWrapper.Next(MinAge, MaxAge);
 
             var customer = new CreateCustomerRequest()
             {
                 Id = Counter.GetNextId(),
                 Age = age,
-                FirstName = FirstNames[RandomCustom.Next(0, FirstNames.Length)],
-                LastName = LastNames[RandomCustom.Next(0, LastNames.Length)],
+                FirstName = FirstNames[RandomWrapper.Next(0, FirstNames.Length)],
+                LastName = LastNames[RandomWrapper.Next(0, LastNames.Length)],
             };
 
             customerList.Add(customer);

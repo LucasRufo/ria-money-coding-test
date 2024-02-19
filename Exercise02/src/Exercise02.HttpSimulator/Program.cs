@@ -32,7 +32,7 @@ for (int i = 0; i < maxNumberOfRequests; i++)
 
 async Task SendPostCustomer()
 {
-    var customers = customerGenerator.GenerateCustomers(RandomCustom.Next(2, 5));
+    var customers = customerGenerator.GenerateCustomers(RandomWrapper.Next(2, 5));
 
     var result = await httpClient.PostAsJsonAsync(path, customers);
 
